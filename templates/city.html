@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather in {{ city_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .forecast-item {
+            cursor: pointer;
+            margin-bottom: 1em;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .forecast-details {
+            display: none;
+            margin-top: 0.5em;
+        }
+        .forecast-details.expanded {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather in {{ city_name }}</h1>
+    <p>Today is {{ current_date }}.</p>
+
+    <!-- Today's weather section -->
+    <h2>Today's Weather</h2>
+    <div class="today-weather">
+        <span>Weather: {{ today_weather.weather }}</span><br>
+        <span>Temperature: {{ today_weather.temp }}°C</span><br>
+        <span>Min Temp: {{ today_weather.temp_min }}°C, Max Temp: {{ today_weather.temp_max }}°C</span><br>
+        <span>Wind Speed: {{ today_weather.wind_speed }} m/s</span><br>
+        <span>Humidity: {{ today_weather.humidity }}%</span>
+    </div>
+
+    <!-- 5-Day Forecast Section -->
+    <h2>5-Day Forecast</h2>
+    <ul>
+        {% for forecast in forecast_summary %}
+        <li class="forecast-item" onclick="toggleDetails(this)">
+            <strong>{{ forecast.date }}</strong><br>
+            <span>Weather: {{ forecast.weather }}</span><br>
+            <span>Min Temp: {{ forecast.temp_min }}°C, Max Temp: {{ forecast.temp_max }}°C</span>
+
+            <!-- Expandable details section -->
+            <div class="forecast-details">
+                <span>Wind Speed: {{ forecast.wind_speed }} m/s</span><br>
+                <span>Rain: {{ forecast.rain }} mm</span><br>
+                <span>Humidity: {{ forecast.humidity }}%</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="footer">
+        <p>Data provided by OpenWeatherMap</p>
+    </div>
+
+    <script>
+        // Function to toggle the visibility of the forecast details
+        function toggleDetails(element) {
+            const details = element.querySelector('.forecast-details');
+            details.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
