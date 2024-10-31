@@ -125,3 +125,4 @@ Here are a few potential enhancements to the project:
 Feel free to fork and modify the project or contribute improvements via pull requests!
 
 # weather-app
+# weather-app
