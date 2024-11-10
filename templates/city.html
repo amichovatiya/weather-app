@@ -32,8 +32,11 @@
         <span>Weather: {{ today_weather.weather }}</span><br>
         <span>Temperature: {{ today_weather.temp }}°C</span><br>
         <span>Min Temp: {{ today_weather.temp_min }}°C, Max Temp: {{ today_weather.temp_max }}°C</span><br>
-        <span>Wind Speed: {{ today_weather.wind_speed }} m/s</span><br>
-        <span>Humidity: {{ today_weather.humidity }}%</span>
+        
+        {% if valid_credentials %}
+            <span>Wind Speed: {{ today_weather.wind_speed }} m/s</span><br>
+            <span>Humidity: {{ today_weather.humidity }}%</span><br>
+        {% endif %}
     </div>
 
     <!-- 5-Day Forecast Section -->
@@ -47,9 +50,11 @@
 
             <!-- Expandable details section -->
             <div class="forecast-details">
-                <span>Wind Speed: {{ forecast.wind_speed }} m/s</span><br>
-                <span>Rain: {{ forecast.rain }} mm</span><br>
-                <span>Humidity: {{ forecast.humidity }}%</span>
+                {% if valid_credentials %}
+                    <span>Wind Speed: {{ forecast.wind_speed }} m/s</span><br>
+                    <span>Rain: {{ forecast.rain }} mm</span><br>
+                    <span>Humidity: {{ forecast.humidity }}%</span>
+                {% endif %}
             </div>
         </li>
         {% endfor %}
