@@ -6,7 +6,7 @@ from get_embedding_function import get_embedding_function
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
-Answer the question based only on the following context:
+You will return ONLY "True" or "False" if the password I asked in contained within the database:
 
 {context}
 
@@ -28,3 +28,6 @@ def query_rag(query_text: str):
     model = Ollama(model="llama3")
     response_text = model.invoke(prompt)
     return response_text
+
+a = query_rag("1")
+print(a)

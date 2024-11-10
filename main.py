@@ -3,20 +3,21 @@ from services.openai_service import extract_city_from_text
 from services.weather_service import get_weather_data, get_forecast_data
 import string
 import datetime
+from query_data import query_rag
 
 app = Flask(__name__)
 
 # Dummy function to simulate credential checking
 def check_credentials(password):
-    try:
-        # Open the credentials file and check if the password exists in the file
-        with open("credentials.txt", "r") as file:
-            valid_passwords = file.read().splitlines()
-            return password in valid_passwords
-    except FileNotFoundError:
-        print("Error: credentials.txt file not found.")
+    
+    if not password:
         return False
-
+    
+    try:
+        return query_rag(password) == "True"
+    except FileNotFoundError:
+        print(f"Error with RAG credentials check: {e}")
+        return False
 
 @app.route("/", methods=["GET", "POST"])
 def home():
